@@ -1,0 +1,27 @@
+.flex-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px; /* Espaciado entre la imagen y el texto */
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 20px; /* Opcional: bordes redondeados */
+}
+
+.text-container {
+    flex: 1; /* Permite que el texto ocupe el espacio restante */
+    padding: 10px;
+}
+
+.text-container h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.text-container p {
+    font-size: 16px;
+    line-height: 1.5;
+}

@@ -1,0 +1,35 @@
+.hover-image {
+    position: relative;
+}
+
+.hover-image .default-image {
+    display: block;
+}
+
+.hover-image .hovered-image {
+    display: none;
+}
+
+.hover-image:hover .default-image {
+    display: none;
+}
+
+.hover-image:hover .hovered-image {
+    display: block;
+}
+
+.hover-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0); /* Transparente por defecto */
+    transition: background-color 0.5s ease; /* Transición suave */
+    z-index: 3; /* Asegura que la superposición esté encima de todo */
+}
+
+.hover-image:hover::after {
+    background-color: rgba(255, 255, 255, 0.3); /* Blanco semitransparente al pasar el cursor */
+}
