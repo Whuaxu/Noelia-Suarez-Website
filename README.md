@@ -1,4 +1,6 @@
+<h1 align="center">
 Noelia Suarez Photography Website
+</h1>
 
 Welcome to the official website of Noelia Suarez, a passionate and creative photographer dedicated to capturing timeless moments through her lens. This site serves as a comprehensive portfolio, contact point, and personal introduction to Noelia's work and artistic vision.
 
