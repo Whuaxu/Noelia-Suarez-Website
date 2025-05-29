@@ -20,13 +20,13 @@ Features
 
 Each photograph reflects her unique style, attention to detail, and ability to tell a story through imagery.
 
-
+<br>
 
 👤 About the Photographer
 
 Get to know Noelia Suarez—her background, inspiration, and journey as a photographer. Learn about her creative process and what drives her passion for photography.
 
-
+<br>
 
 📱 Contact
 
