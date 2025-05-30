@@ -4316,3 +4316,21 @@
 			}
 
 		}
+
+
+#sticky-text {
+
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,1);
+    color: #ffffff;
+    font-size: 2em;
+    padding: 10px 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    font-family: 'Poppins', sans-serif;
+				
+}
