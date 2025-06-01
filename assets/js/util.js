@@ -585,14 +585,77 @@
 	};
 
 	window.addEventListener('scroll', function() {
-    var stickyText = document.getElementById('sticky-text');
-    var header = document.getElementById('header');
+		var stickyText = document.getElementById('sticky-text');
+		var header = document.getElementById('header');
 
-    if(window.scrollY > header.offsetHeight) {
-        stickyText.style.display = 'block';
-    } else {
-        stickyText.style.display = 'none';
-    }
-});
+		if(window.scrollY > header.offsetHeight) {
+			stickyText.style.display = 'block';
+		} else {
+			stickyText.style.display = 'none';
+		}
+	});
+
+	const images = Array.from(document.querySelectorAll('.galleryPort img'));
+	const overlay = document.getElementById('overlay');
+	const overlayImage = document.getElementById('overlayImage');
+	const prevBtn = document.getElementById('prevBtn');
+	const nextBtn = document.getElementById('nextBtn');
+
+	let currentIndex = -1;
+
+	images.forEach((img, index) => {
+		img.addEventListener('click', () => {
+		currentIndex = index;
+		showOverlay();
+		});
+	});
+
+	function showOverlay() {
+		overlay.style.display = 'flex';
+		overlayImage.src = images[currentIndex].src;
+		updateButtons();
+	}
+
+	function hideOverlay() {
+		overlay.style.display = 'none';
+		overlayImage.src = '';
+	}
+
+	function updateButtons() {
+		prevBtn.classList.toggle('hidden', currentIndex === 0);
+		nextBtn.classList.toggle('hidden', currentIndex === images.length - 1);
+	}
+
+	prevBtn.addEventListener('click', () => {
+		if (currentIndex > 0) {
+		currentIndex--;
+		showOverlay();
+		}
+	});
+
+	nextBtn.addEventListener('click', () => {
+		if (currentIndex < images.length - 1) {
+		currentIndex++;
+		showOverlay();
+		}
+	});
+
+	overlay.addEventListener('click', (e) => {
+		if (e.target === overlay || e.target === overlayImage) {
+		hideOverlay();
+		}
+	});
+
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape') hideOverlay();
+		if (e.key === 'ArrowLeft' && currentIndex > 0) {
+		currentIndex--;
+		showOverlay();
+		}
+		if (e.key === 'ArrowRight' && currentIndex < images.length - 1) {
+		currentIndex++;
+		showOverlay();
+		}
+	});
 
 })(jQuery);
