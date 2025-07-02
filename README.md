@@ -9,7 +9,7 @@ Official website of Noelia Suarez,  passionate and creative photographer dedicat
 </h2>
 
 
-🌟 Portfolio
+🌟 <strong>Portfolio</strong>
 
 - Explore Noelia's curated gallery showcasing her photography across various categories including:
 
@@ -26,14 +26,14 @@ Each photograph reflects her unique style, attention to detail, and ability to t
 <br>
 <br>
 
-👤 About the Photographer
+👤 <strong>About the Photographer</strong>
 
 Get to know Noelia Suarez—her background, inspiration, and journey as a photographer. Learn about her creative process and what drives her passion for photography.
 
 <br>
 <br>
 
-📱 Contact
+📱 <strong>Contact</strong>
 
 Easily get in touch with Noelia for inquiries, collaborations, bookings, or general questions. The contact page includes:
 
