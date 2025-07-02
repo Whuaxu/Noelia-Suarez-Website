@@ -9,7 +9,7 @@ Official website of Noelia Suarez,  passionate and creative photographer dedicat
 </h2>
 
 
-🌟 <strong>Portfolio</strong>
+🌟 <h3>Portfolio</h3>
 
 - Explore Noelia's curated gallery showcasing her photography across various categories including:
 
