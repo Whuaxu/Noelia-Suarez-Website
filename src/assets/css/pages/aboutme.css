@@ -1,27 +1,65 @@
+/*
+ * About page — editorial two-column layout.
+ */
+
+/* Widen the About row so the image sits further left and the text
+   stretches further right than the default content container. */
+.wrapper .inner.flex-container {
+	max-width: 1480px;
+}
+
 .flex-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px; /* Espaciado entre la imagen y el texto */
+	display: flex;
+	align-items: center;
+	gap: clamp(3rem, 7vw, 8rem);
+}
+
+.image-container {
+	flex: 0 0 clamp(260px, 28%, 400px);
+	max-width: 400px;
 }
 
 .image-container img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 20px; /* Opcional: bordes redondeados */
+	width: 100%;
+	height: auto;
+	border-radius: 18px;
+	box-shadow: 0 30px 70px -30px rgba(24, 21, 15, 0.45);
 }
 
 .text-container {
-    flex: 1; /* Permite que el texto ocupe el espacio restante */
-    padding: 10px;
+	flex: 1;
+	padding: 0;
+}
+
+.text-container .eyebrow {
+	display: block;
+	margin-bottom: 1rem;
 }
 
 .text-container h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
+	font-family: var(--font-display, Georgia, serif);
+	font-size: clamp(1.9rem, 4vw, 2.9rem);
+	line-height: 1.15;
+	text-align: left !important;
+	margin: 0 0 1.75rem;
 }
 
 .text-container p {
-    font-size: 16px;
-    line-height: 1.5;
+	font-size: 1.02rem;
+	line-height: 1.85;
+	color: var(--ink-soft, #4a443a);
+	margin-bottom: 1.4rem;
+}
+
+.about-signature {
+	font-family: var(--font-display, Georgia, serif);
+	font-size: 1.6rem;
+	color: var(--accent, #9a7b4f);
+	margin-top: 2rem;
+}
+
+@media screen and (max-width: 860px) {
+	.flex-container { flex-direction: column; text-align: left; }
+	.image-container { flex: none; width: 100%; max-width: 420px; }
+	.text-container h2 { text-align: center !important; }
 }

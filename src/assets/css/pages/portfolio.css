@@ -1,64 +1,158 @@
-.galleryPort{
-    column-width: 250px;
-    column-gap: 10px;
-    margin-left: 150px; 
-    margin-right: 150px;
+/*
+ * Portfolio gallery (masonry) + lightbox.
+ * Editorial refresh: responsive columns, soft hover, deep-ink lightbox.
+ */
+
+.galleryPort {
+	column-count: 4;
+	column-gap: 1.25rem;
+	max-width: 1500px;
+	margin: 0 auto;
+	padding: 0 2.25rem 1rem;
 }
 
 .galleryPort img {
-    width: 100%; 
-    height: auto;
-    margin: 10px;
-    cursor:zoom-in;
-    transition: transform 0.3s ease;
-    object-fit: cover;
-    display: block;
+	width: 100%;
+	height: auto;
+	margin: 0 0 1.25rem;
+	display: block;
+	border-radius: 2px;
+	cursor: zoom-in;
+	box-shadow: 0 1px 2px rgba(24, 21, 15, 0.05);
+	transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1),
+	            box-shadow 0.5s cubic-bezier(0.22, 0.61, 0.36, 1),
+	            filter 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+	break-inside: avoid;
 }
 
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.9);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    display: none;
+.galleryPort img:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 22px 45px -22px rgba(24, 21, 15, 0.5);
+	filter: saturate(1.05);
 }
+
+@media screen and (max-width: 1280px) { .galleryPort { column-count: 3; } }
+@media screen and (max-width: 900px)  { .galleryPort { column-count: 2; column-gap: 1rem; padding: 0 1.25rem 1rem; } }
+@media screen and (max-width: 540px)  { .galleryPort { column-count: 1; } }
+
+/* ---------- Lightbox ---------- */
+.overlay {
+	position: fixed;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(13, 11, 8, 0.97);
+	-webkit-backdrop-filter: blur(10px);
+	backdrop-filter: blur(10px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 11000;
+	padding: 5vmin;
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	transition: opacity 0.4s cubic-bezier(0.22, 0.61, 0.36, 1), visibility 0.4s;
+}
+.overlay.is-open {
+	opacity: 1;
+	visibility: visible;
+	pointer-events: auto;
+}
+
+/* Lock the page behind the lightbox */
+body.lightbox-open { overflow: hidden; }
 
 .overlay img {
-    max-width: 90%;
-    max-height: 90%;
-    cursor: zoom-out;
+	max-width: min(92%, 1400px);
+	max-height: 88vh;
+	object-fit: contain;
+	border-radius: 3px;
+	box-shadow: 0 50px 110px -35px rgba(0, 0, 0, 0.85);
+	opacity: 0;
+	transform: scale(0.96);
+	transition: opacity 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
+	            transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.overlay.is-open img.is-loaded {
+	opacity: 1;
+	transform: scale(1);
+}
+
+/* Close button */
+.lightbox-close {
+	position: absolute;
+	top: 22px;
+	right: 26px;
+	width: 50px;
+	height: 50px;
+	font-size: 28px;
+	line-height: 1;
+	background: rgba(255, 255, 255, 0.07);
+	border: 1px solid rgba(255, 255, 255, 0.22);
+	border-radius: 50%;
+	color: #fff;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 2;
+	transition: background 0.25s ease, border-color 0.25s ease, transform 0.35s ease;
+}
+.lightbox-close:hover {
+	background: rgba(255, 255, 255, 0.16);
+	border-color: rgba(255, 255, 255, 0.5);
+	transform: rotate(90deg);
+}
+
+/* Image counter */
+.lightbox-counter {
+	position: absolute;
+	bottom: 26px;
+	left: 0;
+	right: 0;
+	text-align: center;
+	color: rgba(255, 255, 255, 0.65);
+	font-family: 'Inter', system-ui, sans-serif;
+	font-size: 0.78rem;
+	letter-spacing: 0.18em;
+	pointer-events: none;
 }
 
 .arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 50px;
-    background: rgba(113, 113, 113, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    user-select: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 56px;
+	height: 56px;
+	font-size: 26px;
+	line-height: 1;
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.25);
+	border-radius: 50%;
+	color: #fff;
+	cursor: pointer;
+	user-select: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
 }
 
-.arrow.left {
-    left: 20px;
+.arrow:hover {
+	background: rgba(255, 255, 255, 0.18);
+	border-color: rgba(255, 255, 255, 0.5);
 }
 
-.arrow.right {
-    right: 20px;
-}
+.arrow.left  { left: 24px; }
+.arrow.right { right: 24px; }
+.arrow.left:hover  { transform: translateY(-50%) translateX(-3px); }
+.arrow.right:hover { transform: translateY(-50%) translateX(3px); }
 
-.arrow.hidden {
-    display: none;
+.arrow.hidden { display: none; }
+
+@media screen and (max-width: 540px) {
+	.arrow { width: 44px; height: 44px; font-size: 20px; }
+	.arrow.left  { left: 10px; }
+	.arrow.right { right: 10px; }
 }
