@@ -1,0 +1,25 @@
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Claude Code
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs y temporales
+*.log
+*.tmp
+*~
+
+# Dependencias (por si se añaden herramientas)
+node_modules/
+
+# Build / salidas generadas
+dist/
+build/
