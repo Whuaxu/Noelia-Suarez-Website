@@ -309,3 +309,48 @@ var settings = {
 	});
 
 })(jQuery);
+
+/**
+ * Editorial refresh — vanilla nav behaviour.
+ * Runs after include.js has injected the header partial into the DOM.
+ * Handles the mobile menu toggle and highlights the current page link.
+ */
+(function () {
+	var header = document.getElementById('header');
+	if (!header) return;
+
+	var toggle = header.querySelector('.nav-toggle');
+	var links = header.querySelector('.nav-links');
+
+	// Mobile menu toggle.
+	if (toggle && links) {
+		var setOpen = function (open) {
+			document.body.classList.toggle('nav-open', open);
+			toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+		};
+
+		toggle.addEventListener('click', function (e) {
+			e.stopPropagation();
+			setOpen(!document.body.classList.contains('nav-open'));
+		});
+
+		// Close when a link is tapped or when clicking outside the panel.
+		links.addEventListener('click', function (e) {
+			if (e.target.tagName === 'A') setOpen(false);
+		});
+		document.addEventListener('click', function (e) {
+			if (document.body.classList.contains('nav-open') && !header.contains(e.target)) setOpen(false);
+		});
+		document.addEventListener('keydown', function (e) {
+			if (e.key === 'Escape') setOpen(false);
+		});
+	}
+
+	// Mark the link matching the current page as active.
+	var here = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+	var anchors = header.querySelectorAll('.nav-links a');
+	for (var i = 0; i < anchors.length; i++) {
+		var target = (anchors[i].getAttribute('href') || '').split('/').pop().toLowerCase();
+		if (target === here) anchors[i].classList.add('is-active');
+	}
+})();
