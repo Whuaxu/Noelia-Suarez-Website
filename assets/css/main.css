@@ -4346,3 +4346,9 @@
     font-family: 'Times New Roman', Times, serif;
 				
 }
+
+/* Black nav links on subpages (no banner behind them). The normal header
+   uses #FFF so links show over the banner; on .subpage it sits on a light bg. */
+body.subpage #header > a {
+	color: #000000;
+}

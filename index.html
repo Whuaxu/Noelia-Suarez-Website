@@ -4,6 +4,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
+		<base href="./">
 		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="assets/css/main.css">
@@ -11,27 +12,13 @@
 		<link rel="stylesheet" href="assets/css/index.css">
 
 		<title>Noelia Suarez</title>
+		<template data-include="partials/head.html"></template>
+
 	</head>
 
 	<body>
 	
-		<header id="header" class="alt">
-			
-			<div id="sticky-text">
-				<a href="index.html" style="float: right; margin-right: 30px; color: #000000; text-decoration: none;">NOELIA SUAREZ</a>
-				<a href="index.html" style="float: left; margin-left: 30px; color: #000000; text-decoration: none;">INICIO</a>
-				<a href="aboutme.html" style="float: left; margin-left: 30px; color: #000000; text-decoration: none;">SOBRE MI</a>
-				<a href="contact.html" style="float: left; margin-left: 30px; color: #000000; text-decoration: none;">CONTACTO</a>
-				
-				<div style="clear: both;"></div>
-			</div>
-			
-			<a href="index.html" style="float: right; margin-right: 30px; font-size: 30px; font-family: 'Times New Roman', Times, serif">NOELIA SUAREZ</a>
-			<a href="index.html" style="float: left; margin-left: 30px; font-family: 'Times New Roman', Times, serif">INICIO</a>
-			<a href="aboutme.html" style="float: left; margin-left: 30px; font-family: 'Times New Roman', Times, serif">SOBRE MI</a>
-			<a href="contact.html" style="float: left; margin-left: 30px; font-family: 'Times New Roman', Times, serif">CONTACTO</a>
-
-		</header>
+		<div data-include="partials/header.html"></div>
 		<!-- Banner -->
 
 		<section class="banner full">
@@ -81,7 +68,7 @@
 
 				<div class="gallery">
 					<div>
-						<a href="/portfolio/retratos.html" style="text-decoration: none;">
+						<a href="portfolio/retratos.html" style="text-decoration: none;">
 							<div class="image fit hover-image">
 								
 									<img src="images/index/pic01.webp" alt="" class="default-image">
@@ -94,7 +81,7 @@
 						</a>
 					</div>
 					<div>
-						<a href="/portfolio/callejera.html" style="text-decoration: none;">
+						<a href="portfolio/callejera.html" style="text-decoration: none;">
 							<div class="image fit hover-image">
 								<img src="images/index/pic02.webp" alt="" class="default-image">
 								<img src="images/index/pic02-hover.webp" alt="" class="hovered-image">
@@ -106,7 +93,7 @@
 						</a>
 					</div>
 					<div>
-						<a href="/portfolio/paisajes.html" style="text-decoration: none;">
+						<a href="portfolio/paisajes.html" style="text-decoration: none;">
 							<div class="image fit hover-image">
 
 								<img src="images/index/pic03.webp" alt="" class="default-image">
@@ -119,7 +106,7 @@
 						</a>
 					</div>
 					<div>
-						<a href="/portfolio/deporte.html" style="text-decoration: none;">
+						<a href="portfolio/deporte.html" style="text-decoration: none;">
 							<div class="image fit hover-image">
 
 								<img src="images/index/pic04.webp" alt="" class="default-image">
@@ -132,7 +119,7 @@
 						</a>
 					</div>
 					<div>
-						<a href="/portfolio/fiesta.html" style="text-decoration: none;">
+						<a href="portfolio/fiesta.html" style="text-decoration: none;">
 							<div class="image fit hover-image">
 
 								<img src="images/index/pic05.webp" alt="" class="default-image">
@@ -145,7 +132,7 @@
 						</a>
 					</div>
 					<div>
-						<a href="/portfolio/motor.html" style="text-decoration: none;">
+						<a href="portfolio/motor.html" style="text-decoration: none;">
 							<div class="image fit hover-image">
 
 								<img src="images/index/pic06.webp" alt="" class="default-image">
@@ -158,7 +145,7 @@
 						</a>
 					</div>
 					<div>
-						<a href="/portfolio/hogar.html" style="text-decoration: none;">
+						<a href="portfolio/hogar.html" style="text-decoration: none;">
 							<div class="image fit hover-image">
 
 								<img src="images/index/pic07.webp" alt="" class="default-image">
@@ -171,7 +158,7 @@
 						</a>
 					</div>
 					<div>
-						<a href="/portfolio/conciertos.html" style="text-decoration: none;">
+						<a href="portfolio/conciertos.html" style="text-decoration: none;">
 							<div class="image fit hover-image">
 
 								<img src="images/index/pic08.webp" alt="" class="default-image">
@@ -184,7 +171,7 @@
 						</a>
 					</div>
 					<div>
-						<a href="/portfolio/abastos.html" style="text-decoration: none;">
+						<a href="portfolio/abastos.html" style="text-decoration: none;">
 							<div class="image fit hover-image">
 
 								<img src="images/index/pic09.webp" alt="" class="default-image">
@@ -202,29 +189,10 @@
 
 		</section>
 			
-		<footer id="footer">
-			<div class="container">
+		<div data-include="partials/footer.html"></div>
 
-				<ul class="icons">
-					<li><a href="https://www.facebook.com/profile.php?id=61552526468497" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-					<li><a href="https://www.instagram.com/noelia.fotografia_/" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-					<li><a href="mailto:noeliasuarezcancela@gmail.com" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-				</ul>
-
-			</div>
-		</footer>
-		
-		<div class="copyright">
-			
-			&copy; Noelia Suárez Cancela. All rights reserved. <br><br>
-
-			Designed by: Javi Pena
-			<ul class="icons">
-				<li><a href="https://www.linkedin.com/in/javier-pena-bello-1a437527a/" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
-				<li><a href="https://github.com/Whuaxu" class="icon fa-github"><span class="label">GitHub</span></a></li>
-			</ul>
-			
-		</div>
+		<!-- HTML includes (sync): must run before the scripts below -->
+		<script src="assets/js/include.js"></script>
 
 		<!-- Scripts -->
 		<script src="assets/js/jquery.min.js"></script>
@@ -232,6 +200,6 @@
 		<script src="assets/js/skel.min.js"></script>
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
-	
+
 	</body>
 </html>
