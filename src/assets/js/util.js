@@ -584,78 +584,88 @@
 
 	};
 
-	window.addEventListener('scroll', function() {
-		var stickyText = document.getElementById('sticky-text');
-		var header = document.getElementById('header');
-
-		if(window.scrollY > header.offsetHeight) {
-			stickyText.style.display = 'block';
-		} else {
-			stickyText.style.display = 'none';
-		}
-	});
-
-	const images = Array.from(document.querySelectorAll('.galleryPort img'));
+	/**
+	 * Portfolio lightbox. Only wires up on pages that actually contain the
+	 * overlay markup, so it stays inert on index/about/contact.
+	 */
 	const overlay = document.getElementById('overlay');
-	const overlayImage = document.getElementById('overlayImage');
-	const prevBtn = document.getElementById('prevBtn');
-	const nextBtn = document.getElementById('nextBtn');
+	if (overlay) {
+		const images = Array.from(document.querySelectorAll('.galleryPort img'));
+		const overlayImage = document.getElementById('overlayImage');
+		const prevBtn = document.getElementById('prevBtn');
+		const nextBtn = document.getElementById('nextBtn');
 
-	let currentIndex = -1;
+		// Use the Font Awesome icons already bundled with the site instead of
+		// raw arrow/×️ glyphs.
+		prevBtn.innerHTML = '<i class="fa fa-angle-left" aria-hidden="true"></i>';
+		nextBtn.innerHTML = '<i class="fa fa-angle-right" aria-hidden="true"></i>';
 
-	images.forEach((img, index) => {
-		img.addEventListener('click', () => {
-		currentIndex = index;
-		showOverlay();
+		// Build the close button + counter once in JS, so the portfolio
+		// pages don't have to repeat the markup (keep it DRY).
+		const closeBtn = document.createElement('button');
+		closeBtn.className = 'lightbox-close';
+		closeBtn.setAttribute('aria-label', 'Cerrar');
+		closeBtn.innerHTML = '<i class="fa fa-times" aria-hidden="true"></i>';
+		overlay.appendChild(closeBtn);
+
+		const counter = document.createElement('div');
+		counter.className = 'lightbox-counter';
+		overlay.appendChild(counter);
+
+		let currentIndex = -1;
+
+		function preload(i) {
+			if (images[i]) { const im = new Image(); im.src = images[i].src; }
+		}
+
+		function render() {
+			overlayImage.classList.remove('is-loaded');
+			overlayImage.src = images[currentIndex].src;
+			overlayImage.onload = function () { overlayImage.classList.add('is-loaded'); };
+			counter.textContent = (currentIndex + 1) + ' / ' + images.length;
+			preload(currentIndex + 1);
+			preload(currentIndex - 1);
+		}
+
+		function open(index) {
+			currentIndex = index;
+			overlay.classList.add('is-open');
+			document.body.classList.add('lightbox-open');
+			render();
+		}
+
+		function close() {
+			overlay.classList.remove('is-open');
+			document.body.classList.remove('lightbox-open');
+			overlayImage.src = '';
+		}
+
+		// Wrap-around navigation so the arrows always work.
+		function go(step) {
+			if (!images.length) return;
+			currentIndex = (currentIndex + step + images.length) % images.length;
+			render();
+		}
+
+		images.forEach((img, index) => {
+			img.addEventListener('click', () => open(index));
 		});
-	});
 
-	function showOverlay() {
-		overlay.style.display = 'flex';
-		overlayImage.src = images[currentIndex].src;
-		updateButtons();
+		prevBtn.addEventListener('click', (e) => { e.stopPropagation(); go(-1); });
+		nextBtn.addEventListener('click', (e) => { e.stopPropagation(); go(1); });
+		closeBtn.addEventListener('click', (e) => { e.stopPropagation(); close(); });
+
+		// Click on the dim backdrop (not the photo) closes.
+		overlay.addEventListener('click', (e) => {
+			if (e.target === overlay) close();
+		});
+
+		document.addEventListener('keydown', (e) => {
+			if (!overlay.classList.contains('is-open')) return;
+			if (e.key === 'Escape') close();
+			else if (e.key === 'ArrowLeft') go(-1);
+			else if (e.key === 'ArrowRight') go(1);
+		});
 	}
-
-	function hideOverlay() {
-		overlay.style.display = 'none';
-		overlayImage.src = '';
-	}
-
-	function updateButtons() {
-		prevBtn.classList.toggle('hidden', currentIndex === 0);
-		nextBtn.classList.toggle('hidden', currentIndex === images.length - 1);
-	}
-
-	prevBtn.addEventListener('click', () => {
-		if (currentIndex > 0) {
-		currentIndex--;
-		showOverlay();
-		}
-	});
-
-	nextBtn.addEventListener('click', () => {
-		if (currentIndex < images.length - 1) {
-		currentIndex++;
-		showOverlay();
-		}
-	});
-
-	overlay.addEventListener('click', (e) => {
-		if (e.target === overlay || e.target === overlayImage) {
-		hideOverlay();
-		}
-	});
-
-	document.addEventListener('keydown', (e) => {
-		if (e.key === 'Escape') hideOverlay();
-		if (e.key === 'ArrowLeft' && currentIndex > 0) {
-		currentIndex--;
-		showOverlay();
-		}
-		if (e.key === 'ArrowRight' && currentIndex < images.length - 1) {
-		currentIndex++;
-		showOverlay();
-		}
-	});
 
 })(jQuery);
