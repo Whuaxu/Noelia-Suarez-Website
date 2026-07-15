@@ -549,6 +549,8 @@ button:not(.nav-toggle):not(.arrow):not(.lightbox-close),
 	border: 1px solid var(--ink) !important;
 	border-radius: 2px !important;
 	padding: 0.95rem 2.5rem !important;
+	height: auto !important;
+	line-height: 1 !important;
 	cursor: pointer;
 	transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
 }
