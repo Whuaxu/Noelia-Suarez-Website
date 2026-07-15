@@ -24,4 +24,13 @@
 			console.error('Failed to include', url, e);
 		}
 	}
+
+	// Vercel Web Analytics:
+	var host = window.location.hostname;
+	if (host && host !== 'localhost' && host !== '127.0.0.1') {
+		var va = document.createElement('script');
+		va.defer = true;
+		va.src = '/_vercel/insights/script.js';
+		document.head.appendChild(va);
+	}
 })();
