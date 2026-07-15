@@ -51,6 +51,12 @@
 /* ------------------------------------------------------------------ *
  *  Base
  * ------------------------------------------------------------------ */
+/* Off-canvas mobile menu (translateX off-screen) must never widen the page */
+html, body {
+	overflow-x: hidden;
+	max-width: 100%;
+}
+
 body {
 	background-color: var(--paper);
 	color: var(--ink);
@@ -164,6 +170,9 @@ p.special:after { display: none; }
 .nav-links a.is-active::after { transform: scaleX(1); }
 
 /* Hamburger (mobile) */
+/* The legacy main.css styles every <button> with a grey/white fill and
+   `color:#000 !important`; these `!important`s reclaim the toggle so it stays
+   a bare icon that follows the header colour (white over the hero). */
 .nav-toggle {
 	display: none;
 	flex-direction: column;
@@ -172,16 +181,18 @@ p.special:after { display: none; }
 	width: 44px;
 	height: 44px;
 	padding: 0;
-	background: none;
-	border: 0;
+	background: transparent !important;
+	border: 0 !important;
+	box-shadow: none !important;
 	cursor: pointer;
-	color: inherit;
+	color: inherit !important;
 }
 .nav-toggle span {
 	display: block;
 	width: 24px;
 	height: 1.5px;
 	background: currentColor;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
 	transition: transform var(--dur) var(--ease), opacity var(--dur) var(--ease);
 }
 .nav-open .nav-toggle span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
@@ -605,8 +616,9 @@ input:focus-visible,
 	.nav-open .nav-links { transform: translateX(0); }
 	.nav-links a { color: var(--ink); font-size: 1rem; }
 
-	/* Always-dark hamburger on the bar when menu opens / on light header */
-	.nav-open #header { color: var(--ink); }
+	/* When the menu is open the X sits over the dark hero on the left,
+	   so keep it white for contrast. */
+	.nav-open #header { color: #fff; }
 
 	.wrapper { padding: 4rem 0; }
 	.wrapper > .inner,
