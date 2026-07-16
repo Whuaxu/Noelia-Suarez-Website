@@ -8,22 +8,24 @@
  * here we only reference it by @id.
  */
 (function () {
-	var imgs = document.querySelectorAll('.galleryPort img');
-	if (!imgs.length) return;
-
-	// Local-preview fallback: Vercel's image optimizer (/_vercel/image) only
-	// exists on the deployed site. Under `python -m http.server` / file:// those
-	// URLs 404, so on localhost we drop srcset/sizes and let the browser load
-	// the full-size `src`. On the deployed host srcset is kept untouched.
+	// Local-preview fallback (all pages): Vercel's image optimizer
+	// (/_vercel/image) only exists on the deployed site. Under
+	// `python -m http.server` / file:// those URLs 404, so on localhost we drop
+	// the srcset/sizes from every optimized <img> (grid + banner) and let the
+	// browser load the full-size `src`. On the deployed host srcset is untouched.
 	var isLocal = location.hostname === 'localhost'
 		|| location.hostname === '127.0.0.1'
 		|| location.protocol === 'file:';
 	if (isLocal) {
-		for (var j = 0; j < imgs.length; j++) {
-			imgs[j].removeAttribute('srcset');
-			imgs[j].removeAttribute('sizes');
+		var opt = document.querySelectorAll('img[srcset*="_vercel/image"]');
+		for (var k = 0; k < opt.length; k++) {
+			opt[k].removeAttribute('srcset');
+			opt[k].removeAttribute('sizes');
 		}
 	}
+
+	var imgs = document.querySelectorAll('.galleryPort img');
+	if (!imgs.length) return;
 
 	var media = [];
 	for (var i = 0; i < imgs.length; i++) {
