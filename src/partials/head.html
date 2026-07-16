@@ -10,3 +10,35 @@
 
 <!-- Visual refresh layer: must load after main.css / hover.css / page styles -->
 <link rel="stylesheet" href="assets/css/base/theme.css">
+
+<!-- Site-wide structured data (Person + WebSite). Lives here once and is
+     injected into every page by include.js, so it is never duplicated. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://noeliasuarez.vercel.app/#website",
+      "url": "https://noeliasuarez.vercel.app/",
+      "name": "Noelia Suárez",
+      "inLanguage": "es",
+      "publisher": { "@id": "https://noeliasuarez.vercel.app/#person" }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://noeliasuarez.vercel.app/#person",
+      "name": "Noelia Suárez Cancela",
+      "alternateName": "Noelia Suárez",
+      "url": "https://noeliasuarez.vercel.app/",
+      "jobTitle": "Fotógrafa",
+      "image": "https://noeliasuarez.vercel.app/images/aboutme/aboutme.webp",
+      "email": "noeliasuarezcancela@gmail.com",
+      "sameAs": [
+        "https://www.instagram.com/noelia.fotografia_/",
+        "https://www.facebook.com/profile.php?id=61552526468497"
+      ]
+    }
+  ]
+}
+</script>
