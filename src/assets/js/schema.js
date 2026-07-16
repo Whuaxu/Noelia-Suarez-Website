@@ -51,4 +51,19 @@
 	s.type = 'application/ld+json';
 	s.textContent = JSON.stringify(data);
 	document.head.appendChild(s);
+
+	// Breadcrumbs (Inicio > galería) — eligible for rich results, invisible.
+	var crumbName = document.title.split(' | ')[0].split(' · ')[0].trim();
+	var crumbs = {
+		'@context': 'https://schema.org',
+		'@type': 'BreadcrumbList',
+		itemListElement: [
+			{ '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://noeliasuarez.vercel.app/' },
+			{ '@type': 'ListItem', position: 2, name: crumbName, item: canonical ? canonical.href : location.href }
+		]
+	};
+	var b = document.createElement('script');
+	b.type = 'application/ld+json';
+	b.textContent = JSON.stringify(crumbs);
+	document.head.appendChild(b);
 })();
