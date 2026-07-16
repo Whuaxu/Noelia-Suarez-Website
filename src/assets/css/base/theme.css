@@ -261,6 +261,24 @@ body.subpage { padding-top: 4.75em; }
 	text-transform: uppercase;
 	color: #fff;
 	text-shadow: 0 2px 30px rgba(0, 0, 0, 0.35);
+	line-height: 1.12;
+}
+
+.banner > article h1 {
+	margin: 0;
+	padding-bottom: 1.75rem;
+}
+.banner > article h1::after {
+	content: '';
+	position: absolute;
+	margin: auto;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	width: 50%;
+	height: 1px;
+	background-color: rgba(255, 255, 255, 0.65);
+	display: block;
 }
 
 /* Persistent hero meta (eyebrow + scroll cue), lives outside the slides */
@@ -601,6 +619,14 @@ input:focus-visible,
 @media screen and (max-width: 736px) {
 	.nav-inner { padding: 0.9rem 1.25rem; }
 	.nav-toggle { display: flex; }
+
+	#header:not(.alt),
+	body.subpage #header,
+	body.subpage #header.alt {
+		-webkit-backdrop-filter: none;
+		backdrop-filter: none;
+		background: rgba(250, 248, 244, 0.97);
+	}
 
 	.nav-links {
 		position: fixed;

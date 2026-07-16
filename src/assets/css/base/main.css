@@ -4000,6 +4000,7 @@
 		color: #e2d1df;
 		padding: 8em 0;
 		position: relative;
+		overflow: hidden;
 	}
 
 		.banner input, .banner select, .banner textarea {
@@ -4196,7 +4197,7 @@
 
 			.banner > article img {
 				width: 100%;
-				height: 100vh;
+				height: 100%;
 				object-fit: cover;
 				object-position: center 60%; 
 				display: block;
