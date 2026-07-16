@@ -251,7 +251,9 @@ body.subpage { padding-top: 4.75em; }
 	opacity: 1;
 }
 
-.banner > article h2 {
+.banner > article h1,
+.banner > article h2,
+.banner > article .banner-title {
 	font-family: var(--font-display) !important;
 	font-weight: 400;
 	font-size: clamp(2.6rem, 8vw, 7rem);
@@ -435,7 +437,7 @@ body.subpage { padding-top: 4.75em; }
 
 /* Caption */
 .gallery .image.fit .portfolio,
-h1.portfolio {
+h3.portfolio {
 	position: absolute;
 	left: 0;
 	right: 0;
