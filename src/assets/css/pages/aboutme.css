@@ -36,7 +36,7 @@
 	margin-bottom: 1rem;
 }
 
-.text-container h2 {
+.text-container h1 {
 	font-family: var(--font-display, Georgia, serif);
 	font-size: clamp(1.9rem, 4vw, 2.9rem);
 	line-height: 1.15;
@@ -61,5 +61,5 @@
 @media screen and (max-width: 860px) {
 	.flex-container { flex-direction: column; text-align: left; }
 	.image-container { flex: none; width: 100%; max-width: 420px; }
-	.text-container h2 { text-align: center !important; }
+	.text-container h1 { text-align: center !important; }
 }
