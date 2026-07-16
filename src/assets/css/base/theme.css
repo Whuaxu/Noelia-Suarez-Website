@@ -1,0 +1,644 @@
+/*
+ * theme.css — Editorial visual refresh layer for Noelia Suárez Photography.
+ *
+ * Loaded AFTER main.css / hover.css / page styles so it overrides the old
+ * HTML5UP "Slate" look without touching its markup or JS. It introduces a
+ * design-token system (color, type, spacing, motion) and re-skins the
+ * header, hero slider, galleries, about, contact form and footer with an
+ * elegant editorial aesthetic: warm off-white paper, deep ink, a display
+ * serif (Fraunces) paired with a clean sans (Inter).
+ */
+
+/* ------------------------------------------------------------------ *
+ *  Design tokens
+ * ------------------------------------------------------------------ */
+:root {
+	/* Palette — warm paper + deep ink */
+	--paper:        #faf8f4;
+	--paper-2:      #f3efe8;
+	--surface:      #ffffff;
+	--ink:          #18150f;
+	--ink-soft:     #4a443a;
+	--muted:        #8a8175;
+	--line:         rgba(24, 21, 15, 0.12);
+	--line-soft:    rgba(24, 21, 15, 0.07);
+	--accent:       #9a7b4f;   /* understated warm bronze */
+	--accent-deep:  #6f5836;
+
+	/* Dark surfaces (hero overlay, footer) */
+	--ink-bg:       #14110c;
+	--on-dark:      #f4f0e9;
+	--on-dark-mut:  rgba(244, 240, 233, 0.62);
+
+	/* Typography */
+	--font-display: 'Fraunces', 'Times New Roman', Georgia, serif;
+	--font-sans:    'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+	/* Motion */
+	--ease:    cubic-bezier(0.22, 0.61, 0.36, 1);
+	--dur:     280ms;
+	--dur-img: 700ms;
+
+	/* Elevation */
+	--shadow-sm: 0 1px 2px rgba(24, 21, 15, 0.05);
+	--shadow-md: 0 14px 40px -18px rgba(24, 21, 15, 0.35);
+	--shadow-lg: 0 30px 70px -30px rgba(24, 21, 15, 0.45);
+
+	/* Layout */
+	--container: 1320px;
+}
+
+/* ------------------------------------------------------------------ *
+ *  Base
+ * ------------------------------------------------------------------ */
+/* Off-canvas mobile menu (translateX off-screen) must never widen the page */
+html, body {
+	overflow-x: hidden;
+	max-width: 100%;
+}
+
+body {
+	background-color: var(--paper);
+	color: var(--ink);
+}
+
+body, input, select, textarea, button {
+	font-family: var(--font-sans);
+	font-weight: 400;
+	line-height: 1.7;
+	letter-spacing: 0.01em;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--font-display);
+	font-weight: 400;
+	color: var(--ink);
+	letter-spacing: -0.01em;
+	line-height: 1.12;
+}
+
+p { color: var(--ink-soft); }
+
+a { color: var(--accent-deep); }
+
+::selection { background: var(--accent); color: #fff; }
+
+/* A reusable eyebrow label */
+.eyebrow,
+p.special {
+	font-family: var(--font-sans);
+	text-transform: uppercase;
+	letter-spacing: 0.32em;
+	font-size: 0.72rem;
+	font-weight: 500;
+	color: var(--muted);
+}
+p.special:after { display: none; }
+
+/* ------------------------------------------------------------------ *
+ *  Header / navigation
+ * ------------------------------------------------------------------ */
+#header {
+	height: auto;
+	line-height: normal;
+	padding: 0;
+	background: transparent;
+	text-align: left;
+	transition: background-color var(--dur) var(--ease),
+	            box-shadow var(--dur) var(--ease),
+	            color var(--dur) var(--ease);
+	border-bottom: 1px solid transparent;
+}
+
+.nav-inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1.5rem;
+	width: 100%;
+	margin: 0;
+	padding: 1.15rem 2.25rem;
+}
+
+.nav-brand {
+	font-family: var(--font-display);
+	font-size: 1.5rem;
+	font-weight: 500;
+	letter-spacing: 0.04em;
+	text-decoration: none;
+	color: inherit;
+	white-space: nowrap;
+}
+.nav-brand span { color: var(--accent); }
+
+.nav-links {
+	display: flex;
+	align-items: center;
+	gap: 2.25rem;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.nav-links li { padding: 0; }
+.nav-links a {
+	position: relative;
+	font-family: var(--font-sans);
+	font-size: 0.82rem;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 0.18em;
+	text-decoration: none;
+	color: inherit;
+	padding: 0.35rem 0;
+	transition: color var(--dur) var(--ease);
+}
+.nav-links a::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 1px;
+	background: currentColor;
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform var(--dur) var(--ease);
+}
+.nav-links a:hover::after,
+.nav-links a.is-active::after { transform: scaleX(1); }
+
+/* Hamburger (mobile) */
+/* The legacy main.css styles every <button> with a grey/white fill and
+   `color:#000 !important`; these `!important`s reclaim the toggle so it stays
+   a bare icon that follows the header colour (white over the hero). */
+.nav-toggle {
+	display: none;
+	flex-direction: column;
+	justify-content: center;
+	gap: 5px;
+	width: 44px;
+	height: 44px;
+	padding: 0;
+	background: transparent !important;
+	border: 0 !important;
+	box-shadow: none !important;
+	cursor: pointer;
+	color: inherit !important;
+}
+.nav-toggle span {
+	display: block;
+	width: 24px;
+	height: 1.5px;
+	background: currentColor;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+	transition: transform var(--dur) var(--ease), opacity var(--dur) var(--ease);
+}
+.nav-open .nav-toggle span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-open .nav-toggle span:nth-child(2) { opacity: 0; }
+.nav-open .nav-toggle span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* --- Header states --- */
+/* Transparent over the hero (alt), light text */
+#header.alt {
+	color: #fff;
+	animation: none;
+}
+#header.alt .nav-brand span { color: #fff; }
+
+/* Scrolled / solid state */
+#header:not(.alt) {
+	background: rgba(250, 248, 244, 0.92);
+	-webkit-backdrop-filter: saturate(160%) blur(12px);
+	backdrop-filter: saturate(160%) blur(12px);
+	border-bottom-color: var(--line-soft);
+	box-shadow: var(--shadow-sm);
+	color: var(--ink);
+}
+
+/* Subpages have no hero behind the bar: keep it solid from the top */
+body.subpage #header,
+body.subpage #header.alt {
+	background: rgba(250, 248, 244, 0.92);
+	-webkit-backdrop-filter: saturate(160%) blur(12px);
+	backdrop-filter: saturate(160%) blur(12px);
+	border-bottom-color: var(--line-soft);
+	color: var(--ink);
+}
+body.subpage #header .nav-brand span,
+body.subpage #header.alt .nav-brand span { color: var(--accent); }
+body.subpage #header > a { color: var(--ink); }
+
+body.subpage { padding-top: 4.75em; }
+
+/* Hide the legacy duplicate sticky bar entirely */
+#sticky-text { display: none !important; }
+
+/* ------------------------------------------------------------------ *
+ *  Hero / banner slider
+ * ------------------------------------------------------------------ */
+.banner { background-color: var(--ink-bg); }
+
+/* Richer gradient scrim for legible titles */
+.banner > article:after {
+	background: linear-gradient(
+		180deg,
+		rgba(20, 17, 12, 0.55) 0%,
+		rgba(20, 17, 12, 0.20) 35%,
+		rgba(20, 17, 12, 0.30) 70%,
+		rgba(20, 17, 12, 0.65) 100%);
+	opacity: 1;
+}
+
+.banner > article h1,
+.banner > article h2,
+.banner > article .banner-title {
+	font-family: var(--font-display) !important;
+	font-weight: 400;
+	font-size: clamp(2.6rem, 8vw, 7rem);
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: #fff;
+	text-shadow: 0 2px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* Persistent hero meta (eyebrow + scroll cue), lives outside the slides */
+.hero-meta {
+	position: absolute;
+	left: 0;
+	right: 0;
+	z-index: 3;
+	text-align: center;
+	pointer-events: none;
+}
+.hero-eyebrow {
+	top: clamp(6.5rem, 18vh, 11rem);
+	position: absolute;
+	left: 0; right: 0;
+	color: rgba(255, 255, 255, 0.82);
+	font-family: var(--font-sans);
+	text-transform: uppercase;
+	letter-spacing: 0.42em;
+	font-size: clamp(0.62rem, 1.4vw, 0.8rem);
+	font-weight: 500;
+}
+.hero-scroll {
+	bottom: 2.25rem;
+	position: absolute;
+	left: 0; right: 0;
+	color: rgba(255, 255, 255, 0.8);
+	font-family: var(--font-sans);
+	text-transform: uppercase;
+	letter-spacing: 0.28em;
+	font-size: 0.62rem;
+}
+.hero-scroll::after {
+	content: '';
+	display: block;
+	width: 1px;
+	height: 38px;
+	margin: 0.85rem auto 0;
+	background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0));
+	animation: scrollCue 2.2s var(--ease) infinite;
+}
+@keyframes scrollCue {
+	0%   { transform: scaleY(0); transform-origin: top; }
+	40%  { transform: scaleY(1); transform-origin: top; }
+	60%  { transform: scaleY(1); transform-origin: bottom; }
+	100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* Indicators → thin elegant ticks */
+.banner .indicators li:before {
+	width: 22px;
+	height: 2px;
+	border-radius: 0;
+	background: rgba(255, 255, 255, 0.4);
+	margin: -1px 0 0 -11px;
+	transition: background var(--dur) var(--ease), width var(--dur) var(--ease);
+}
+.banner .indicators li.visible:before {
+	background: #fff;
+	width: 34px;
+	margin-left: -17px;
+}
+
+/* ------------------------------------------------------------------ *
+ *  Sections
+ * ------------------------------------------------------------------ */
+.wrapper.style2 { background: var(--paper); }
+.wrapper { padding: 6rem 0; }
+.wrapper > .inner,
+.wrapper .inner {
+	max-width: var(--container);
+	margin: 0 auto;
+	padding: 0 2.25rem;
+}
+
+.wrapper header.align-center {
+	margin-bottom: 3.5rem;
+}
+.wrapper header.align-center h2 {
+	font-family: var(--font-display) !important;
+	font-size: clamp(2.2rem, 5vw, 3.4rem) !important;
+	letter-spacing: 0.01em;
+	margin: 0;
+}
+.wrapper header.align-center::after {
+	content: '';
+	display: block;
+	width: 700px;
+	height: 1px;
+	background: #b9b5ad;
+	margin: 1.4rem auto 0;
+}
+
+/* ------------------------------------------------------------------ *
+ *  Home — category gallery
+ * ------------------------------------------------------------------ */
+.gallery {
+	display: grid !important;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 1.5rem;
+	margin: 0;
+}
+/* Neutralise the legacy flex/width/padding rules */
+.gallery > *,
+.gallery > :nth-child(2n),
+.gallery > :nth-child(2n + 1),
+.gallery > :nth-child(-n + 2),
+.gallery > :nth-last-child(-n + 2),
+.gallery > :nth-child(1n),
+.gallery > :nth-child(1n + 1),
+.gallery > :nth-child(-n + 1),
+.gallery > :nth-last-child(-n + 1) {
+	width: auto !important;
+	padding: 0 !important;
+	margin: 0 !important;
+}
+.gallery > * a { display: block; }
+
+/* Each category becomes an image card with an overlaid caption */
+.gallery .image,
+.gallery .image.fit {
+	position: relative;
+	display: block;
+	margin: 0 !important;
+	padding: 0 !important;
+	background: var(--ink-bg);
+	overflow: hidden;
+	aspect-ratio: 4 / 5;
+	box-shadow: var(--shadow-sm);
+}
+
+.gallery .image.fit .default-image,
+.gallery .image.fit .hovered-image {
+	position: absolute !important;
+	inset: 0;
+	width: 100% !important;
+	height: 100% !important;
+	object-fit: cover;
+	margin: 0 !important;
+	display: block !important;
+	transition: opacity var(--dur-img) var(--ease),
+	            transform var(--dur-img) var(--ease);
+}
+.gallery .image.fit .hovered-image { opacity: 0; }
+
+/* Cross-fade + slow zoom on hover (replaces the display:none swap).
+   These selectors must out-specify `.gallery .image.fit .hovered-image`
+   (4 classes) — hence the `.image.fit:hover` form, not `.hover-image:hover`. */
+.gallery .image.fit:hover .default-image { opacity: 0; }
+.gallery .image.fit:hover .hovered-image { opacity: 1; }
+.gallery .image.fit:hover .default-image,
+.gallery .image.fit:hover .hovered-image { transform: scale(1.06); }
+
+/* Hide the legacy <br> spacer */
+.gallery .image.fit br { display: none; }
+
+/* Gradient scrim so the caption is always legible */
+.hover-image::after {
+	background: linear-gradient(
+		180deg,
+		rgba(20,17,12,0) 45%,
+		rgba(20,17,12,0.65) 100%) !important;
+	z-index: 3;
+	transition: background var(--dur) var(--ease) !important;
+}
+/* Keep the scrim steady on hover so the photo swap stays clearly visible
+   (no extra darkening) — only the bottom stays shaded for caption legibility. */
+.hover-image:hover::after {
+	background: linear-gradient(
+		180deg,
+		rgba(20,17,12,0) 45%,
+		rgba(20,17,12,0.6) 100%) !important;
+}
+
+/* Caption */
+.gallery .image.fit .portfolio,
+h3.portfolio {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 1.25rem;
+	z-index: 4;
+	margin: 0;
+	padding: 0 1.25rem;
+	font-family: var(--font-display);
+	font-size: clamp(1.25rem, 1.6vw, 1.7rem);
+	font-weight: 400;
+	letter-spacing: 0.01em;
+	color: #fff;
+	text-align: center;
+	text-shadow: 0 2px 18px rgba(0, 0, 0, 0.4);
+	transition: transform var(--dur) var(--ease);
+}
+.gallery .image.fit::before {
+	/* subtle "view" cue on hover */
+	content: 'Ver galería';
+	position: absolute;
+	left: 0; right: 0;
+	bottom: 1.5rem;
+	z-index: 4;
+	text-align: center;
+	font-family: var(--font-sans);
+	font-size: 0.66rem;
+	text-transform: uppercase;
+	letter-spacing: 0.26em;
+	color: rgba(255,255,255,0.85);
+	opacity: 0;
+	transform: translateY(8px);
+	transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.gallery .image.fit:hover .portfolio { transform: translateY(-1.6rem); }
+.gallery .image.fit:hover::before { opacity: 1; transform: translateY(0); }
+
+/* ------------------------------------------------------------------ *
+ *  Footer
+ * ------------------------------------------------------------------ */
+#footer,
+.copyright {
+	background: var(--ink-bg);
+}
+#footer { padding: 5rem 0 1.5rem; }
+#footer .icons { margin: 0; }
+#footer a,
+.copyright a { color: var(--on-dark-mut); transition: color var(--dur) var(--ease); }
+#footer a:hover,
+.copyright a:hover { color: #fff; }
+.copyright {
+	color: var(--on-dark-mut);
+	font-size: 0.82rem;
+	letter-spacing: 0.04em;
+	padding-bottom: 2.5rem;
+}
+
+/* ------------------------------------------------------------------ *
+ *  Contact form
+ * ------------------------------------------------------------------ */
+#main.container {
+	max-width: 720px;
+	margin: 0 auto;
+	padding: 7rem 2.25rem 5rem;
+}
+#main.container h1 {
+	font-family: var(--font-display);
+	font-size: clamp(2rem, 5vw, 3rem);
+	margin-bottom: 0.5rem;
+}
+.contact-lead {
+	text-align: center;
+	color: var(--muted);
+	margin-bottom: 3rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+	background: var(--surface) !important;
+	border: 1px solid var(--line) !important;
+	border-radius: 2px !important;
+	color: var(--ink) !important;
+	padding: 0.85rem 1rem !important;
+	transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+select:focus,
+textarea:focus {
+	border-color: var(--accent) !important;
+	box-shadow: 0 0 0 3px rgba(154, 123, 79, 0.15) !important;
+	outline: none;
+}
+::placeholder { color: var(--muted); opacity: 1; }
+
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+button:not(.nav-toggle):not(.arrow):not(.lightbox-close),
+.button {
+	font-family: var(--font-sans) !important;
+	font-weight: 500 !important;
+	text-transform: uppercase !important;
+	letter-spacing: 0.18em !important;
+	font-size: 0.78rem !important;
+	background: var(--ink) !important;
+	color: #fff !important;
+	border: 1px solid var(--ink) !important;
+	border-radius: 2px !important;
+	padding: 0.95rem 2.5rem !important;
+	height: auto !important;
+	line-height: 1 !important;
+	cursor: pointer;
+	transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+button:not(.nav-toggle):not(.arrow):not(.lightbox-close):hover,
+.button:hover {
+	background: var(--accent) !important;
+	border-color: var(--accent) !important;
+	color: #fff !important;
+}
+
+/* ------------------------------------------------------------------ *
+ *  Accessibility
+ * ------------------------------------------------------------------ */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+.nav-links a:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 3px;
+	border-radius: 1px;
+}
+
+/* Visually hidden but accessible to screen readers */
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+/* ------------------------------------------------------------------ *
+ *  Responsive
+ * ------------------------------------------------------------------ */
+@media screen and (max-width: 1100px) {
+	.gallery { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media screen and (max-width: 736px) {
+	.nav-inner { padding: 0.9rem 1.25rem; }
+	.nav-toggle { display: flex; }
+
+	.nav-links {
+		position: fixed;
+		inset: 0 0 0 auto;
+		width: min(78vw, 320px);
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: center;
+		gap: 1.75rem;
+		padding: 2rem 2.25rem;
+		background: var(--paper);
+		box-shadow: var(--shadow-lg);
+		transform: translateX(100%);
+		transition: transform var(--dur) var(--ease);
+		z-index: 10002;
+	}
+	.nav-open .nav-links { transform: translateX(0); }
+	.nav-links a { color: var(--ink); font-size: 1rem; }
+
+	/* When the menu is open the X sits over the dark hero on the left,
+	   so keep it white for contrast. */
+	.nav-open #header { color: #fff; }
+
+	.wrapper { padding: 4rem 0; }
+	.wrapper > .inner,
+	.wrapper .inner { padding: 0 1.25rem; }
+	.gallery { grid-template-columns: 1fr; gap: 1rem; }
+	.gallery .image.fit { aspect-ratio: 3 / 2; }
+}
+
+/* ------------------------------------------------------------------ *
+ *  Reduced motion
+ * ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+	*, *::before, *::after {
+		animation-duration: 0.001ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.001ms !important;
+		scroll-behavior: auto !important;
+	}
+}
